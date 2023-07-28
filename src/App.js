@@ -1,20 +1,23 @@
-import Navbar from './components/Navbar';
-import Home from './components/Home'
-import productReducer from './reducers/productsReducer'
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Cart from "./components/Cart";
 
-function App() {
-  const store = createStore(productReducer);
-
-  return (
-    <Provider store={store}>
-      <div className="App">
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="App">
           <Navbar />
-          <Home />
-      </div>
-    </Provider>
-  );
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route path="/cart" element={< Cart />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
