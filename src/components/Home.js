@@ -5,7 +5,6 @@ import { addToCart } from "../actions/cartAction";
 const Home = (props) => {
 
   function handleClick(itemId) {
-    console.log(props);
     props.addToCart(itemId);
   }
 
