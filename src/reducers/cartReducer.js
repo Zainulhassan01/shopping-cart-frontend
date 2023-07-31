@@ -2,6 +2,7 @@ import {
   ADD_TO_CART,
   INCREAESE_QUANTITY,
   DECREAESE_QUANTITY,
+  REMOVE_ITEM,
 } from "../actions/cartAction";
 
 const initState = {
@@ -97,6 +98,15 @@ const cartReducer = (state = initState, action) => {
         total: newTotal,
       };
     }
+  } else if (action.type === REMOVE_ITEM) {
+    let items = state.addedItems.filter((item) => item.id !== action.id);
+    let item = state.items.find((item) => item.id === action.id);
+    let newTotal = state.total - item.price * item.quantity;
+    return {
+      ...state,
+      addedItems: items,
+      total: newTotal,
+    };
   } else {
     return state;
   }

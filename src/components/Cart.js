@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { decreaseQuantity, increaseQuantity } from "../actions/cartAction";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeItem,
+} from "../actions/cartAction";
 
 const Cart = (props) => {
   function increaseQuantity(id) {
@@ -10,6 +14,10 @@ const Cart = (props) => {
 
   function decreaseQuantity(id) {
     props.decreaseQuantity(id);
+  }
+
+  function removeItem(id) {
+    props.removeItem(id);
   }
 
   let addedItems = props.items.length ? (
@@ -47,7 +55,10 @@ const Cart = (props) => {
                 </i>
               </Link>
             </div>
-            <button className="waves-effect waves-light btn pink remove">
+            <button
+              className="waves-effect waves-light btn pink remove"
+              onClick={() => removeItem(item.id)}
+            >
               Remove
             </button>
           </div>
@@ -80,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     decreaseQuantity: (id) => {
       dispatch(decreaseQuantity(id));
+    },
+    removeItem: (id) => {
+      dispatch(removeItem(id));
     },
   };
 };
