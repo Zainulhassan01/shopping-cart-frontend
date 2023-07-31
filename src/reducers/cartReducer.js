@@ -1,4 +1,8 @@
-import { ADD_TO_CART } from "../actions/cartAction";
+import {
+  ADD_TO_CART,
+  INCREAESE_QUANTITY,
+  DECREAESE_QUANTITY,
+} from "../actions/cartAction";
 
 const initState = {
   items: [
@@ -39,8 +43,8 @@ const initState = {
       price: 90,
     },
   ],
-  addedItems:[],
-  total: 0
+  addedItems: [],
+  total: 0,
 };
 
 const cartReducer = (state = initState, action) => {
@@ -60,6 +64,36 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         addedItems: [...state.addedItems, addedItem],
+        total: newTotal,
+      };
+    }
+  } else if (action.type === INCREAESE_QUANTITY) {
+    let item = state.items.find((item) => item.id === action.id);
+    if (item) {
+      item.quantity += 1;
+      let newTotal = state.total + item.price;
+      return {
+        ...state,
+        addedItems: [...state.addedItems],
+        total: newTotal,
+      };
+    }
+  } else if (action.type === DECREAESE_QUANTITY) {
+    let item = state.items.find((item) => item.id === action.id);
+    if (item && item.quantity > 0) {
+      item.quantity -= 1;
+      let newTotal = state.total - item.price;
+      if (item.quantity === 0) {
+        let items = state.addedItems.filter((item) => item.id !== action.id);
+        return {
+          ...state,
+          addedItems: items,
+          total: newTotal,
+        };
+      }
+      return {
+        ...state,
+        addedItems: [...state.addedItems],
         total: newTotal,
       };
     }

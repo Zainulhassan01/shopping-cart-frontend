@@ -1,8 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { decreaseQuantity, increaseQuantity } from "../actions/cartAction";
 
 const Cart = (props) => {
+  function increaseQuantity(id) {
+    props.increaseQuantity(id);
+  }
+
+  function decreaseQuantity(id) {
+    props.decreaseQuantity(id);
+  }
+
   let addedItems = props.items.length ? (
     props.items.map((item) => {
       return (
@@ -22,10 +31,20 @@ const Cart = (props) => {
             </p>
             <div className="add-remove">
               <Link to="/cart">
-                <i className="material-icons">arrow_drop_up</i>
+                <i
+                  className="material-icons"
+                  onClick={() => increaseQuantity(item.id)}
+                >
+                  arrow_drop_up
+                </i>
               </Link>
               <Link to="/cart">
-                <i className="material-icons">arrow_drop_down</i>
+                <i
+                  className="material-icons"
+                  onClick={() => decreaseQuantity(item.id)}
+                >
+                  arrow_drop_down
+                </i>
               </Link>
             </div>
             <button className="waves-effect waves-light btn pink remove">
@@ -54,4 +73,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increaseQuantity: (id) => {
+      dispatch(increaseQuantity(id));
+    },
+    decreaseQuantity: (id) => {
+      dispatch(decreaseQuantity(id));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
