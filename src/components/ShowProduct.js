@@ -5,24 +5,20 @@ import { useParams } from "react-router-dom";
 const ShowProduct = () => {
   const { id } = useParams();
   const item = useSelector((state) =>
-    state.items.filter((e) => e.id === parseInt(id))
+    state.items.filter((item) => item.id === parseInt(id))
   );
   return (
     <>
       {item && (
         <div className="card">
           <div className="card-image">
-              <img src={item[0].img} alt={item[0].title} />
-              <span className="card-title">{item[0].title}</span>
+            <img src={item[0].img} alt={item[0].title} />
+            <span className="card-title">{item[0].title}</span>
             <span
               to="/"
               className="btn-floating halfway-fab waves-effect waves-light red"
             >
-              <i
-                className="material-icons"
-              >
-                add
-              </i>
+              <i className="material-icons">add</i>
             </span>
           </div>
 
