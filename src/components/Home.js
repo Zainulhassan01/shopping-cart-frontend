@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
 import { addToCart } from "../actions/cartAction";
 
 const Home = (props) => {
@@ -13,8 +14,10 @@ const Home = (props) => {
       <>
         <div className="card" key={i}>
           <div className="card-image">
+          <Link to={`/product/${item.id}`}>
             <img src={item.img} alt={item.title} />
             <span className="card-title">{item.title}</span>
+            </Link>
             <span
               to="/"
               className="btn-floating halfway-fab waves-effect waves-light red"
