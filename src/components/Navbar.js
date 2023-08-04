@@ -22,6 +22,7 @@ const Navbar = () => {
                 <i className="material-icons">shopping_cart</i>
               </Link>
             </li>
+            <li><Link to="/signup">Sign Up</Link></li>
           </ul>
         </div>
       </nav>

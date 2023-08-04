@@ -32,7 +32,7 @@ const Cart = (props) => {
             <span className="title">{item.title}</span>
             <p>{item.desc}</p>
             <p>
-              <b>Price: {item.price}$</b>
+              <b>Price: {item.price * item.quantity}$</b>
             </p>
             <p>
               <b>Quantity: {item.quantity}</b>
@@ -80,7 +80,7 @@ const Cart = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.addedItems,
+    items: state.cart.addedItems,
   };
 };
 
