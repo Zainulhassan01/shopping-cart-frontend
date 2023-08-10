@@ -1,9 +1,25 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useEffect } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartAction";
+// import { fetchItems } from '../actions/cartAction';
+import axios from "axios";
 
 const Home = (props) => {
+  // const dispatch = useDispatch();
+  // const items = useSelector((state) => state.items);
+
+  // useEffect(() => {
+  //   dispatch(fetchItems());
+  // }, [dispatch]);
+
+  useEffect(() => {
+    const BACKEND_BASE_URL = 'http://localhost:3000'
+    axios.get(`${BACKEND_BASE_URL}/api/products`)
+      .then(response => console.log(response.data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
   function handleClick(itemId) {
     props.addToCart(itemId);
   }

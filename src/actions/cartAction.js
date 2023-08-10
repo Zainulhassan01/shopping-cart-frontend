@@ -1,3 +1,4 @@
+// import axios from 'axios';
 export const ADD_TO_CART = "ADD_TO_CART";
 export const INCREAESE_QUANTITY = "INCREAESE_QUANTITY";
 export const DECREAESE_QUANTITY = "DECREAESE_QUANTITY";
@@ -30,3 +31,13 @@ export const removeItem = (id) => {
     id,
   };
 };
+
+// export const fetchItems = () => async (dispatch) => {
+  // try {
+  //   const response = await axios.get('/api/products');
+  //   dispatch({ type: 'FETCH_ITEMS_SUCCESS', payload: response.data });
+  // } catch (error) {
+  //   dispatch({ type: 'FETCH_ITEMS_FAILURE', payload: error.message });
+  // }
+// };
+
