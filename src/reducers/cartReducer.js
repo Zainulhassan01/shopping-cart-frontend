@@ -55,17 +55,11 @@ const initState = {
 };
 
 const cartReducer = (state = initState, action) => {
-  // COMMENTED CODE WILL BE USED TO UPDATE REDUX STORE AFTER FETCHING DATA FROM API
-
-  // if (action.type === 'FETCH_ITEMS_SUCCESS')
-  // {
-  //   return { ...state, items: action.payload, error: null }
-  // }
-  // else if(action.type === 'FETCH_ITEMS_FAILURE')
-  // {
-  //   return { ...state, items: [], error: action.payload }
-  // }
-  if (action.type === ADD_TO_CART) {
+  if (action.type === 'SET_ITEMS')
+  {
+    return { ...state, items: action.item, error: null }
+  }
+  else if (action.type === ADD_TO_CART) {
     let addedItem = state.items.find((item) => item.id === action.id);
     let existed_item = state.addedItems.find((item) => action.id === item.id);
     if (existed_item) {

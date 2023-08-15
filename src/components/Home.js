@@ -6,17 +6,12 @@ import { addToCart } from "../actions/cartAction";
 import axios from "axios";
 
 const Home = (props) => {
-  // const dispatch = useDispatch();
-  // const items = useSelector((state) => state.items);
-
-  // useEffect(() => {
-  //   dispatch(fetchItems());
-  // }, [dispatch]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const BACKEND_BASE_URL = 'http://localhost:3000'
     axios.get(`${BACKEND_BASE_URL}/api/products`)
-      .then(response => console.log(response.data))
+      .then(response => dispatch({type: "SET_ITEMS", item: response.data}))
       .catch(error => console.error('Error fetching data:', error));
   }, []);
 
