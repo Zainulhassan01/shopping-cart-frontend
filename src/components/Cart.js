@@ -20,6 +20,10 @@ const Cart = (props) => {
     props.removeItem(id);
   }
 
+  function checkout(){
+    // Need to add the cart functionality
+  }
+
   let addedItems = props.items.length ? (
     props.items.map((item) => {
       return (
@@ -61,6 +65,13 @@ const Cart = (props) => {
             >
               Remove
             </button>
+            <br />
+            <button
+              className="waves-effect waves-light btn black remove"
+              onClick={() => checkout()}
+            >
+              Check Out
+            </button>
           </div>
         </li>
       );
@@ -80,7 +91,7 @@ const Cart = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.cart.addedItems,
+    items: state.cart.addedItems
   };
 };
 

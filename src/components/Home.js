@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartAction";
-// import { fetchItems } from '../actions/cartAction';
 import axios from "axios";
 
 const Home = (props) => {
@@ -10,7 +9,7 @@ const Home = (props) => {
   const [products, setProduct] = useState([])
 
   const dispatch = useDispatch();
-  const BACKEND_BASE_URL = "http://localhost:3000";
+  const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_BASE_URL;
 
   useEffect(() => {
     axios
