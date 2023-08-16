@@ -60,8 +60,8 @@ const cartReducer = (state = initState, action) => {
     return { ...state, items: action.item, error: null }
   }
   else if (action.type === ADD_TO_CART) {
-    let addedItem = state.items.find((item) => item.id === action.id);
-    let existed_item = state.addedItems.find((item) => action.id === item.id);
+    let addedItem = state.items.find((item) => item._id === action.id);
+    let existed_item = state.addedItems.find((item) => action.id === item._id);
     if (existed_item) {
       addedItem.quantity += 1;
       return {
@@ -79,7 +79,7 @@ const cartReducer = (state = initState, action) => {
       };
     }
   } else if (action.type === INCREAESE_QUANTITY) {
-    let item = state.items.find((item) => item.id === action.id);
+    let item = state.items.find((item) => item._id === action.id);
     if (item) {
       item.quantity += 1;
       let newTotal = state.total + item.price;
@@ -90,12 +90,12 @@ const cartReducer = (state = initState, action) => {
       };
     }
   } else if (action.type === DECREAESE_QUANTITY) {
-    let item = state.items.find((item) => item.id === action.id);
+    let item = state.items.find((item) => item._id === action.id);
     if (item && item.quantity > 0) {
       item.quantity -= 1;
       let newTotal = state.total - item.price;
       if (item.quantity === 0) {
-        let items = state.addedItems.filter((item) => item.id !== action.id);
+        let items = state.addedItems.filter((item) => item._id !== action.id);
         return {
           ...state,
           addedItems: items,
@@ -109,8 +109,8 @@ const cartReducer = (state = initState, action) => {
       };
     }
   } else if (action.type === REMOVE_ITEM) {
-    let items = state.addedItems.filter((item) => item.id !== action.id);
-    let item = state.items.find((item) => item.id === action.id);
+    let items = state.addedItems.filter((item) => item._id !== action.id);
+    let item = state.items.find((item) => item._id === action.id);
     let newTotal = state.total - item.price * item.quantity;
     return {
       ...state,

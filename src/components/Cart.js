@@ -23,16 +23,16 @@ const Cart = (props) => {
   let addedItems = props.items.length ? (
     props.items.map((item) => {
       return (
-        <li className="collection-item avatar" key={item.id}>
+        <li className="collection-item avatar" key={item._id}>
           <div className="item-img">
             <img src={item.img} alt={item.img} className="" />
           </div>
 
           <div className="item-desc">
-            <span className="title">{item.title}</span>
+            <span className="title">{item.name}</span>
             <p>{item.desc}</p>
             <p>
-              <b>Price: {item.price * item.quantity}$</b>
+              <b>Price: {item.price.replace('$', '') * item.quantity}$</b>
             </p>
             <p>
               <b>Quantity: {item.quantity}</b>
@@ -41,7 +41,7 @@ const Cart = (props) => {
               <Link to="/cart">
                 <i
                   className="material-icons"
-                  onClick={() => increaseQuantity(item.id)}
+                  onClick={() => increaseQuantity(item._id)}
                 >
                   arrow_drop_up
                 </i>
@@ -49,7 +49,7 @@ const Cart = (props) => {
               <Link to="/cart">
                 <i
                   className="material-icons"
-                  onClick={() => decreaseQuantity(item.id)}
+                  onClick={() => decreaseQuantity(item._id)}
                 >
                   arrow_drop_down
                 </i>
@@ -57,7 +57,7 @@ const Cart = (props) => {
             </div>
             <button
               className="waves-effect waves-light btn pink remove"
-              onClick={() => removeItem(item.id)}
+              onClick={() => removeItem(item._id)}
             >
               Remove
             </button>

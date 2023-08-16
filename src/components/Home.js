@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartAction";
@@ -6,17 +6,39 @@ import { addToCart } from "../actions/cartAction";
 import axios from "axios";
 
 const Home = (props) => {
+  const [order, setOrder] = useState('')
+  const [products, setProduct] = useState([])
+
   const dispatch = useDispatch();
+  const BACKEND_BASE_URL = "http://localhost:3000";
 
   useEffect(() => {
-    const BACKEND_BASE_URL = 'http://localhost:3000'
-    axios.get(`${BACKEND_BASE_URL}/api/products`)
-      .then(response => dispatch({type: "SET_ITEMS", item: response.data}))
-      .catch(error => console.error('Error fetching data:', error));
+    axios
+      .get(`${BACKEND_BASE_URL}/api/products`)
+      .then((response) => dispatch({ type: "SET_ITEMS", item: response.data }))
+      .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  function handleClick(itemId) {
-    props.addToCart(itemId);
+  function handleClick(item) {
+    if(order){
+      products.push(item)
+      axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/orders/${order}`, {
+        products: products,
+      }).then((response) => {
+        props.addToCart(response.data.products[0]._id);
+      })
+      .catch((error) => console.log(error))
+    }
+    else{
+      axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/order`, {
+        products: [item],
+      }).then((response) => {
+        props.addToCart(response.data.products[0]._id);
+        setProduct([item])
+        setOrder(response.data._id)
+      })
+      .catch((error) => console.log(error))
+    }
   }
 
   let itemList = props.items.map((item, i) => {
@@ -24,7 +46,7 @@ const Home = (props) => {
       <>
         <div className="card" key={i}>
           <div className="card-image">
-            <Link to={`/product/${item.id}`}>
+            <Link to={`/product/${item._id}`}>
               <img src={item.img} alt={item.title} />
               <span className="card-title">{item.title}</span>
             </Link>
@@ -32,10 +54,7 @@ const Home = (props) => {
               to="/"
               className="btn-floating halfway-fab waves-effect waves-light red"
             >
-              <i
-                className="material-icons"
-                onClick={() => handleClick(item.id)}
-              >
+              <i className="material-icons" onClick={() => handleClick(item)}>
                 add
               </i>
             </span>
