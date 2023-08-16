@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 const ShowProduct = () => {
   const { id } = useParams();
   const item = useSelector((state) =>
-    state.cart.items.filter((item) => item.id === parseInt(id))
+    state.cart.items.filter((item) => item._id === parseInt(id))
   );
   return (
     <>
