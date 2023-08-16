@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../actions/cartAction";
+import { orderFunction } from './Shared';
 import axios from "axios";
 
 const Home = (props) => {
@@ -19,25 +20,8 @@ const Home = (props) => {
   }, []);
 
   function handleClick(item) {
-    if(order){
-      products.push(item)
-      axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/orders/${order}`, {
-        products: products,
-      }).then((response) => {
-        props.addToCart(response.data.products[0]._id, response.data._id);
-      })
-      .catch((error) => console.log(error))
-    }
-    else{
-      axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/order`, {
-        products: [item],
-      }).then((response) => {
-        props.addToCart(response.data.products[0]._id, response.data._id);
-        setProduct([item])
-        setOrder(response.data._id)
-      })
-      .catch((error) => console.log(error))
-    }
+    // Need to test it out
+    orderFunction(order, props, item, products)
   }
 
   let itemList = props.items.map((item, i) => {
