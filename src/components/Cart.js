@@ -6,6 +6,7 @@ import {
   increaseQuantity,
   removeItem,
 } from "../actions/cartAction";
+import axios from 'axios';
 
 const Cart = (props) => {
   function increaseQuantity(id) {
@@ -21,7 +22,12 @@ const Cart = (props) => {
   }
 
   function checkout(){
-    // Need to add the cart functionality
+    axios.post(`${process.env.REACT_APP_BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/orders/${props.orderId}/checkout`, {
+      order: props.items,
+    }).then((response) => {
+      props.addToCart(response.data);
+    })
+    .catch((error) => console.log(error))
   }
 
   let addedItems = props.items.length ? (
@@ -91,7 +97,8 @@ const Cart = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.cart.addedItems
+    items: state.cart.addedItems,
+    orderId: state.cart.orderId,
   };
 };
 

@@ -24,7 +24,7 @@ const Home = (props) => {
       axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/orders/${order}`, {
         products: products,
       }).then((response) => {
-        props.addToCart(response.data.products[0]._id);
+        props.addToCart(response.data.products[0]._id, response.data._id);
       })
       .catch((error) => console.log(error))
     }
@@ -32,7 +32,7 @@ const Home = (props) => {
       axios.post(`${BACKEND_BASE_URL}/api/user/64b94a56ff0aa719f67cffba/order`, {
         products: [item],
       }).then((response) => {
-        props.addToCart(response.data.products[0]._id);
+        props.addToCart(response.data.products[0]._id, response.data._id);
         setProduct([item])
         setOrder(response.data._id)
       })
@@ -87,8 +87,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addToCart: (id) => {
-      dispatch(addToCart(id));
+    addToCart: (id, orderId) => {
+      dispatch(addToCart(id, orderId));
     },
   };
 };

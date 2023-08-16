@@ -52,6 +52,7 @@ const initState = {
   ],
   addedItems: [],
   total: 0,
+  orderId: 0
 };
 
 const cartReducer = (state = initState, action) => {
@@ -67,6 +68,7 @@ const cartReducer = (state = initState, action) => {
       return {
         ...state,
         total: state.total + addedItem.price,
+        orderId: action.orderId,
       };
     } else {
       addedItem.quantity = 1;
@@ -76,6 +78,7 @@ const cartReducer = (state = initState, action) => {
         ...state,
         addedItems: [...state.addedItems, addedItem],
         total: newTotal,
+        orderId: action.orderId,
       };
     }
   } else if (action.type === INCREAESE_QUANTITY) {

@@ -3,10 +3,11 @@ export const INCREAESE_QUANTITY = "INCREAESE_QUANTITY";
 export const DECREAESE_QUANTITY = "DECREAESE_QUANTITY";
 export const REMOVE_ITEM = "REMOVE_ITEM";
 
-export const addToCart = (id) => {
+export const addToCart = (id, orderId) => {
   return {
     type: ADD_TO_CART,
     id,
+    orderId,
   };
 };
 
